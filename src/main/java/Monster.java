@@ -1,3 +1,7 @@
+/**
+ * This is the superclass for all monsters in the game. All generic functionality comes through this Class
+ */
+
 public class Monster {
 
     //Descriptors
@@ -11,8 +15,8 @@ public class Monster {
     private String[] skills;
 
     //Stats
-    private Integer hp;
-    private Integer sp;
+    private Integer[] hp;
+    private Integer[] sp;
 
     private Integer[] stats;
 
@@ -29,8 +33,8 @@ public class Monster {
         skills = new String[8];
 
 
-        hp = 100;
-        sp = 100;
+        hp = new Integer[]{100, 100};
+        sp = new Integer[]{100, 100};
 
         stats = new Integer[]{10, 10, 10, 10, 10, 10};
 
@@ -83,19 +87,37 @@ public class Monster {
     }
 
     public Integer getHp() {
-        return hp;
+        return hp[0];
     }
 
     public void setHp(Integer hp) {
-        this.hp = hp;
+        this.hp[0] = hp;
+        if(this.hp[0] > this.hp[1]) this.hp[0] = this.hp[1];
+    }
+
+    public Integer getMaxHp() {
+        return hp[1];
+    }
+
+    public void setMaxHp(Integer hp) {
+        this.hp[1] = hp;
     }
 
     public Integer getSp() {
-        return sp;
+        return sp[0];
     }
 
     public void setSp(Integer sp) {
-        this.sp = sp;
+        this.sp[0] = sp;
+        if(this.sp[0] > this.sp[1]) this.sp[0] = this.sp[1];
+    }
+
+    public Integer getMaxSp() {
+        return sp[1];
+    }
+
+    public void setMaxSp(Integer sp) {
+        this.sp[1] = sp;
     }
 
     public Integer[] getStats() {
