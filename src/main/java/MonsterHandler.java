@@ -1,3 +1,5 @@
+import monsters.Monster;
+
 public class MonsterHandler {
 
     private Monster monster;
@@ -9,6 +11,12 @@ public class MonsterHandler {
     }
 
     public void getAction() { action = ""; }
+
+    public void performAction(MonsterHandler handler){
+
+        // Skill.useSkill();
+
+    }
 
     public Integer[] fetchHp() {return null;}
 

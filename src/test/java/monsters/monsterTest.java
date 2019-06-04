@@ -1,7 +1,8 @@
+package monsters;
+
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
+import monsters.Monster;
 import org.junit.Test;
 
 public class monsterTest {

@@ -1,4 +1,7 @@
+import monsters.Monster;
+
 /**
+ *
  * This class hold all of the information for combat.
  */
 public class Combat {

@@ -1,3 +1,5 @@
+import monsters.Monster;
+
 public class CPUMonsterHandler extends MonsterHandler {
 
     public CPUMonsterHandler(Monster monster) {

@@ -1,3 +1,5 @@
+package monsters;
+
 /**
  * This is the superclass for all monsters in the game. All generic functionality comes through this Class
  */
@@ -24,7 +26,7 @@ public class Monster {
 
     public Monster() {
 
-        name = "Monster";
+        name = "monsters.Monster";
         species = "unknown";
         family = "slime";
         score = 100;
@@ -36,9 +38,26 @@ public class Monster {
         hp = new Integer[]{100, 100};
         sp = new Integer[]{100, 100};
 
-        stats = new Integer[]{10, 10, 10, 10, 10, 10};
+        stats = new Integer[]{10, 10, 10, 10, 10, 10, 10};
 
         wild = 100;
+
+    }
+
+    public Monster(String name, String species, String family, Integer score, Integer experience, Integer hp, Integer sp,
+                   Integer atk, Integer def, Integer power, Integer dexterity, Integer intelligence, Integer agility, Integer luck, Integer wild) {
+        this.name = name;
+        this.species = species;
+        this.family = family;
+        this.score = score;
+        this.experience = experience;
+        this.skills = new String[8];
+        this.hp = new Integer[]{hp, hp};
+        this.sp = new Integer[]{sp,sp};
+        stats[0] = atk;
+        stats[1] = def;
+        stats[2] = power;
+        // TODO Finish this
 
     }
 
