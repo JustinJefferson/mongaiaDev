@@ -4,65 +4,76 @@ package monsters;
  * This is the superclass for all monsters in the game. All generic functionality comes through this Class
  */
 
-public class Monster {
+public abstract class Monster {
+    /*
+    Handles get and set
+    updating stats upon level up
+     */
 
     //Descriptors
     private String name;
-    private final String species;
-    private final String family;
-    private final Integer score;
+    private Integer level;
 
     //State
     private Integer experience;
     private String[] skills;
 
     //Stats
-    private Integer[] hp;
-    private Integer[] sp;
-
-    private Integer[] stats;
-
+    private Integer hp;
+    private Integer maxHp;
+    private Integer sp;
+    private Integer maxSp;
+    private Integer attack;
+    private Integer defense;
+    private Integer power;
+    private Integer dexterity;
+    private Integer intelligence;
+    private Integer agility;
+    private Integer luck;
     private Integer wild;
 
-    public Monster() {
-
-        name = "monsters.Monster";
-        species = "unknown";
-        family = "slime";
-        score = 100;
-
-        experience = 0;
-        skills = new String[8];
 
 
-        hp = new Integer[]{100, 100};
-        sp = new Integer[]{100, 100};
 
-        stats = new Integer[]{10, 10, 10, 10, 10, 10, 10};
 
-        wild = 100;
 
-    }
+    public Monster(String name, Integer level, Integer experience, Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
+                   Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck, Integer wild) {
 
-    public Monster(String name, String species, String family, Integer score, Integer experience, Integer hp, Integer sp,
-                   Integer atk, Integer def, Integer power, Integer dexterity, Integer intelligence, Integer agility, Integer luck, Integer wild) {
         this.name = name;
-        this.species = species;
-        this.family = family;
-        this.score = score;
+        this.level = level;
         this.experience = experience;
         this.skills = new String[8];
-        this.hp = new Integer[]{hp, hp};
-        this.sp = new Integer[]{sp,sp};
-        stats[0] = atk;
-        stats[1] = def;
-        stats[2] = power;
+
+        Integer startHpSp = 10;
+        Integer startAbility = 5;
+        Integer effectiveAbility = level / 100;
+
         // TODO Finish this
+        maxHp = startHpSp + baseHp * effectiveAbility;
+        hp = maxHp;
+        maxSp = startHpSp + baseSp * effectiveAbility;
+        sp = maxSp;
+        attack = startAbility + baseAtk * effectiveAbility;
+        defense = startAbility + baseDef * effectiveAbility;
+        power = startAbility + basePower * effectiveAbility;
+        dexterity = startAbility + baseDexterity * effectiveAbility;
+        intelligence = startAbility + baseIntelligence * effectiveAbility;
+        agility = startAbility + baseAgility * effectiveAbility;
+        luck = startAbility + baseLuck * effectiveAbility;
+        this.wild = wild;
+
 
     }
 
-    public Boolean canEvolve() {
-        return null;
+    public abstract Boolean canEvolve();
+
+    public abstract void updateStats();
+
+    public void calculateStats(Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
+                               Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck) {
+        // TODO calculate stats
+
     }
 
     public void evolve() {
@@ -77,16 +88,12 @@ public class Monster {
         this.name = name;
     }
 
-    public String getSpecies() {
-        return species;
+    public Integer getLevel() {
+        return level;
     }
 
-    public String getFamily() {
-        return family;
-    }
-
-    public Integer getScore() {
-        return score;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public Integer getExperience() {
@@ -106,45 +113,91 @@ public class Monster {
     }
 
     public Integer getHp() {
-        return hp[0];
+        return hp;
     }
 
     public void setHp(Integer hp) {
-        this.hp[0] = hp;
-        if(this.hp[0] > this.hp[1]) this.hp[0] = this.hp[1];
+        this.hp = hp;
     }
 
     public Integer getMaxHp() {
-        return hp[1];
+        return maxHp;
     }
 
-    public void setMaxHp(Integer hp) {
-        this.hp[1] = hp;
+    public void setMaxHp(Integer maxHp) {
+        this.maxHp = maxHp;
     }
 
     public Integer getSp() {
-        return sp[0];
+        return sp;
     }
 
     public void setSp(Integer sp) {
-        this.sp[0] = sp;
-        if(this.sp[0] > this.sp[1]) this.sp[0] = this.sp[1];
+        this.sp = sp;
     }
 
     public Integer getMaxSp() {
-        return sp[1];
+        return maxSp;
     }
 
-    public void setMaxSp(Integer sp) {
-        this.sp[1] = sp;
+    public void setMaxSp(Integer maxSp) {
+        this.maxSp = maxSp;
     }
 
-    public Integer[] getStats() {
-        return stats;
+    public Integer getAttack() {
+        return attack;
     }
 
-    public void setStats(Integer[] stats) {
-        this.stats = stats;
+    public void setAttack(Integer attack) {
+        this.attack = attack;
+    }
+
+    public Integer getDefense() {
+        return defense;
+    }
+
+    public void setDefense(Integer defense) {
+        this.defense = defense;
+    }
+
+    public Integer getPower() {
+        return power;
+    }
+
+    public void setPower(Integer power) {
+        this.power = power;
+    }
+
+    public Integer getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(Integer dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public Integer getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(Integer intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public Integer getAgility() {
+        return agility;
+    }
+
+    public void setAgility(Integer agility) {
+        this.agility = agility;
+    }
+
+    public Integer getLuck() {
+        return luck;
+    }
+
+    public void setLuck(Integer luck) {
+        this.luck = luck;
     }
 
     public Integer getWild() {
