@@ -4,14 +4,14 @@ public class SaveLoadData {
     public static void main(String[] args) {
 
         // The name of the file to open.
-        String fileName = "src/main/saveData.txt";
+        String fileName = "src\\main\\saveData.txt";
 
         // This will reference one line at a time
         String line = null;
 
         try {
             // FileReader reads text files in the default encoding
-            FileReader fileReader = new FileReader("resources/saveData.txt");
+            FileReader fileReader = new FileReader("/Users/Jefferson/Dev/mongaiaDev/src/main/resources/saveData.txt");
 
             //Always wrap FileReader in BufferedReader
             BufferedReader bufferedReader = new BufferedReader(fileReader);

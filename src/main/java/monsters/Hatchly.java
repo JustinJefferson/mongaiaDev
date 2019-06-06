@@ -1,6 +1,6 @@
 package monsters;
 
-public class Hatchly extends Monster implements Avian {
+public class Hatchly extends Monster implements AvianFamily {
     /*
     Handles base stats per species
     skills for leveling up
@@ -9,6 +9,7 @@ public class Hatchly extends Monster implements Avian {
     /**
      * Base set for all of the stat values
      */
+    private static final String[] evolutions = {"SWANDA", "KONDOR"};
 
     private static final String species = "HATCHLY";
     private static final Integer baseHp = 120;             // D 120 - 60
@@ -29,8 +30,9 @@ public class Hatchly extends Monster implements Avian {
      */
     public Hatchly() {
 
-        super(species,1,0, baseHp, baseSp, baseAttack, baseDefense,
-                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild);
+        super(species, species,1,0, baseHp, baseSp, baseAttack, baseDefense,
+                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild, score);
+
     }
 
     /**
@@ -39,8 +41,8 @@ public class Hatchly extends Monster implements Avian {
      */
     public Hatchly(Integer level) {
 
-        super(species, level, 0, baseHp, baseSp, baseAttack, baseDefense,
-                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild);
+        super(species, species, level, 0, baseHp, baseSp, baseAttack, baseDefense,
+                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild, score);
     }
 
     /**
@@ -48,14 +50,11 @@ public class Hatchly extends Monster implements Avian {
      */
     public Hatchly(String name, Integer level) {
 
-        super(name, level, 0, baseHp, baseSp, baseAttack, baseDefense,
-                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild);
+        super(name, species, level, 0, baseHp, baseSp, baseAttack, baseDefense,
+                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild, score);
     }
 
-    public void updateStats() {
 
-        calculateStats(baseHp, baseSp, baseAttack, baseDefense, basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck);
-    }
 
     public Boolean canEvolve(){
 

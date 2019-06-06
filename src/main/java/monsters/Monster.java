@@ -11,39 +11,54 @@ public abstract class Monster {
      */
 
     //Descriptors
-    private String name;
-    private Integer level;
+    String name;
+    final String species;
+    Integer level;
+    final Integer score;
 
     //State
-    private Integer experience;
-    private String[] skills;
+    Integer experience;
+    String[] skills;
 
     //Stats
-    private Integer hp;
-    private Integer maxHp;
-    private Integer sp;
-    private Integer maxSp;
-    private Integer attack;
-    private Integer defense;
-    private Integer power;
-    private Integer dexterity;
-    private Integer intelligence;
-    private Integer agility;
-    private Integer luck;
-    private Integer wild;
+    Integer hp;
+    Integer maxHp;
+    Integer sp;
+    Integer maxSp;
+    Integer attack;
+    Integer defense;
+    Integer power;
+    Integer dexterity;
+    Integer intelligence;
+    Integer agility;
+    Integer luck;
+    Integer wild;
+
+    //Base Stats
+    final Integer baseHp;
+    final Integer baseSp;
+    final Integer baseAttack;
+    final Integer baseDefense;
+    final Integer basePower;
+    final Integer baseDexterity;
+    final Integer baseIntelligence;
+    final Integer baseAgility;
+    final Integer baseLuck;
 
 
 
 
 
 
-    public Monster(String name, Integer level, Integer experience, Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
-                   Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck, Integer wild) {
+    public Monster(String name, String species, Integer level, Integer experience, Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
+                   Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck, Integer wild, Integer score) {
 
         this.name = name;
+        this.species = species;
         this.level = level;
         this.experience = experience;
         this.skills = new String[8];
+        this.score = score;
 
         Integer startHpSp = 10;
         Integer startAbility = 5;
@@ -63,21 +78,80 @@ public abstract class Monster {
         luck = startAbility + baseLuck * effectiveAbility;
         this.wild = wild;
 
+        this.baseHp = baseHp;
+        this.baseSp = baseSp;
+        this.baseAttack = baseAtk;
+        this.baseDefense = baseDef;
+        this.basePower = basePower;
+        this.baseDexterity = baseDexterity;
+        this.baseIntelligence = baseIntelligence;
+        this.baseAgility = baseAgility;
+        this.baseLuck = baseLuck;
+
+
+
 
     }
 
     public abstract Boolean canEvolve();
+//    public abstract Monster evolve();
 
-    public abstract void updateStats();
 
-    public void calculateStats(Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
-                               Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck) {
-        // TODO calculate stats
+    /**
+     * adds experience gained from combat to the monster
+     * @param gainedExp the score of the opposing monster
+     */
+    public void gainExperience(Integer gainedExp) {
 
     }
 
-    public void evolve() {
+    protected void removeSkill() {
 
+    }
+    protected void addSkill() {
+
+    }
+
+
+    /**
+     * Calculates each stat based on its level and changes the effective stat
+     */
+    protected void updateStats(){
+        Integer previousHp = maxHp;
+        maxHp = calculateHpSp(baseHp);
+        hp += maxHp - previousHp;
+
+        Integer previousSp = maxSp;
+        maxSp = calculateHpSp(baseSp);
+        sp += maxSp - previousSp;
+
+        attack = calculateAbility(baseAttack);
+        defense = calculateAbility(baseDefense);
+        power = calculateAbility(basePower);
+        dexterity = calculateAbility(baseDexterity);
+        intelligence = calculateAbility(baseIntelligence);
+        agility = calculateAbility(baseAgility);
+        luck = calculateAbility(baseLuck);
+    }
+
+    /**
+     * Used to update the Hp or Sp for the appropriate level.
+     * Hp and Sp have a minimum score of 10 in which a percentage of the base score is applied.
+     * @param baseValue of either the Hp or Sp score.
+     * @return the appropriate hp or sp for the level of the monster.
+     */
+    private Integer calculateHpSp(Integer baseValue) {
+        return (10 + baseValue * level / 50);
+    }
+
+    /**
+     * Used to update the ablility score for the appropriate level
+     * Ability scores have a minimum of 5 in which a percentage of the base score is applied.
+     * @param baseValue of either atk, def, power, dexterity, intelligence, agility, or luck.
+     * @return the appropriate ability score for the level of the monster
+     */
+    private Integer calculateAbility(Integer baseValue) {
+        return (5 + baseValue * level / 50);
     }
 
     public String getName() {
@@ -206,5 +280,41 @@ public abstract class Monster {
 
     public void setWild(Integer wild) {
         this.wild = wild;
+    }
+
+    public Integer getBaseHp() {
+        return baseHp;
+    }
+
+    public Integer getBaseSp() {
+        return baseSp;
+    }
+
+    public Integer getBaseAttack() {
+        return baseAttack;
+    }
+
+    public Integer getBaseDefense() {
+        return baseDefense;
+    }
+
+    public Integer getBasePower() {
+        return basePower;
+    }
+
+    public Integer getBaseDexterity() {
+        return baseDexterity;
+    }
+
+    public Integer getBaseIntelligence() {
+        return baseIntelligence;
+    }
+
+    public Integer getBaseAgility() {
+        return baseAgility;
+    }
+
+    public Integer getBaseLuck() {
+        return baseLuck;
     }
 }
