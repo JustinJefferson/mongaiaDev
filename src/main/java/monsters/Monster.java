@@ -94,6 +94,23 @@ public abstract class Monster {
     }
 
     public abstract Boolean canEvolve();
+//    public abstract Monster evolve();
+
+
+    /**
+     * adds experience gained from combat to the monster
+     * @param gainedExp the score of the opposing monster
+     */
+    public void gainExperience(Integer gainedExp) {
+
+    }
+
+    protected void removeSkill() {
+
+    }
+    protected void addSkill() {
+
+    }
 
 
     /**

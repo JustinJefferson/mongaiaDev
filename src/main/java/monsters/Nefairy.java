@@ -33,4 +33,7 @@ public class Nefairy extends Monster implements PlantFamily {
     public Boolean canEvolve() {
         return null;
     }
+    public Monster evolve() {
+        return this;
+    }
 }

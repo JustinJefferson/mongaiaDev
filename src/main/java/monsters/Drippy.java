@@ -2,6 +2,8 @@ package monsters;
 
 public class Drippy extends Monster implements SlimeFamily{
 
+    private static final String[] evolutions = {"BOXYBLOB", "GLOBBY"};
+
     public Drippy() {
 
         super("DRIPPY", "DRIPPY", 1, 0, 120, 120,
@@ -32,6 +34,10 @@ public class Drippy extends Monster implements SlimeFamily{
      */
     public Boolean canEvolve() {
         return null;
+    }
+
+    public Monster evolve() {
+        return this;
     }
 
 

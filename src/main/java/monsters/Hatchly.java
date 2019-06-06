@@ -9,6 +9,7 @@ public class Hatchly extends Monster implements AvianFamily {
     /**
      * Base set for all of the stat values
      */
+    private static final String[] evolutions = {"SWANDA", "KONDOR"};
 
     private static final String species = "HATCHLY";
     private static final Integer baseHp = 120;             // D 120 - 60
