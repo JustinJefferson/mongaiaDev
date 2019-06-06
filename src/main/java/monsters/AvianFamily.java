@@ -2,7 +2,7 @@ package monsters;
 
 import monsters.skills.*;
 
-public interface Avian {
+public interface AvianFamily {
 
     String family = "avian";
 

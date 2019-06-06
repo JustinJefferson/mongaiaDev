@@ -95,16 +95,46 @@ public abstract class Monster {
 
     public abstract Boolean canEvolve();
 
-    public void updateStats(){};
 
-    public void calculateStats(Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
-                               Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck) {
-        // TODO calculate stats
+    /**
+     * Calculates each stat based on its level and changes the effective stat
+     */
+    protected void updateStats(){
+        Integer previousHp = maxHp;
+        maxHp = calculateHpSp(baseHp);
+        hp += maxHp - previousHp;
 
+        Integer previousSp = maxSp;
+        maxSp = calculateHpSp(baseSp);
+        sp += maxSp - previousSp;
+
+        attack = calculateAbility(baseAttack);
+        defense = calculateAbility(baseDefense);
+        power = calculateAbility(basePower);
+        dexterity = calculateAbility(baseDexterity);
+        intelligence = calculateAbility(baseIntelligence);
+        agility = calculateAbility(baseAgility);
+        luck = calculateAbility(baseLuck);
     }
 
-    public void evolve() {
+    /**
+     * Used to update the Hp or Sp for the appropriate level.
+     * Hp and Sp have a minimum score of 10 in which a percentage of the base score is applied.
+     * @param baseValue of either the Hp or Sp score.
+     * @return the appropriate hp or sp for the level of the monster.
+     */
+    private Integer calculateHpSp(Integer baseValue) {
+        return (10 + baseValue * level / 50);
+    }
 
+    /**
+     * Used to update the ablility score for the appropriate level
+     * Ability scores have a minimum of 5 in which a percentage of the base score is applied.
+     * @param baseValue of either atk, def, power, dexterity, intelligence, agility, or luck.
+     * @return the appropriate ability score for the level of the monster
+     */
+    private Integer calculateAbility(Integer baseValue) {
+        return (5 + baseValue * level / 50);
     }
 
     public String getName() {
@@ -233,5 +263,41 @@ public abstract class Monster {
 
     public void setWild(Integer wild) {
         this.wild = wild;
+    }
+
+    public Integer getBaseHp() {
+        return baseHp;
+    }
+
+    public Integer getBaseSp() {
+        return baseSp;
+    }
+
+    public Integer getBaseAttack() {
+        return baseAttack;
+    }
+
+    public Integer getBaseDefense() {
+        return baseDefense;
+    }
+
+    public Integer getBasePower() {
+        return basePower;
+    }
+
+    public Integer getBaseDexterity() {
+        return baseDexterity;
+    }
+
+    public Integer getBaseIntelligence() {
+        return baseIntelligence;
+    }
+
+    public Integer getBaseAgility() {
+        return baseAgility;
+    }
+
+    public Integer getBaseLuck() {
+        return baseLuck;
     }
 }

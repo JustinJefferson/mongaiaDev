@@ -1,6 +1,6 @@
 package monsters;
 
-public class Hatchly extends Monster implements Avian {
+public class Hatchly extends Monster implements AvianFamily {
     /*
     Handles base stats per species
     skills for leveling up
@@ -53,10 +53,7 @@ public class Hatchly extends Monster implements Avian {
                 basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild, score);
     }
 
-    public void updateStats() {
 
-        calculateStats(baseHp, baseSp, baseAttack, baseDefense, basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck);
-    }
 
     public Boolean canEvolve(){
 
