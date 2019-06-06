@@ -11,39 +11,54 @@ public abstract class Monster {
      */
 
     //Descriptors
-    private String name;
-    private Integer level;
+    String name;
+    final String species;
+    Integer level;
+    final Integer score;
 
     //State
-    private Integer experience;
-    private String[] skills;
+    Integer experience;
+    String[] skills;
 
     //Stats
-    private Integer hp;
-    private Integer maxHp;
-    private Integer sp;
-    private Integer maxSp;
-    private Integer attack;
-    private Integer defense;
-    private Integer power;
-    private Integer dexterity;
-    private Integer intelligence;
-    private Integer agility;
-    private Integer luck;
-    private Integer wild;
+    Integer hp;
+    Integer maxHp;
+    Integer sp;
+    Integer maxSp;
+    Integer attack;
+    Integer defense;
+    Integer power;
+    Integer dexterity;
+    Integer intelligence;
+    Integer agility;
+    Integer luck;
+    Integer wild;
+
+    //Base Stats
+    final Integer baseHp;
+    final Integer baseSp;
+    final Integer baseAttack;
+    final Integer baseDefense;
+    final Integer basePower;
+    final Integer baseDexterity;
+    final Integer baseIntelligence;
+    final Integer baseAgility;
+    final Integer baseLuck;
 
 
 
 
 
 
-    public Monster(String name, Integer level, Integer experience, Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
-                   Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck, Integer wild) {
+    public Monster(String name, String species, Integer level, Integer experience, Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
+                   Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck, Integer wild, Integer score) {
 
         this.name = name;
+        this.species = species;
         this.level = level;
         this.experience = experience;
         this.skills = new String[8];
+        this.score = score;
 
         Integer startHpSp = 10;
         Integer startAbility = 5;
@@ -63,12 +78,24 @@ public abstract class Monster {
         luck = startAbility + baseLuck * effectiveAbility;
         this.wild = wild;
 
+        this.baseHp = baseHp;
+        this.baseSp = baseSp;
+        this.baseAttack = baseAtk;
+        this.baseDefense = baseDef;
+        this.basePower = basePower;
+        this.baseDexterity = baseDexterity;
+        this.baseIntelligence = baseIntelligence;
+        this.baseAgility = baseAgility;
+        this.baseLuck = baseLuck;
+
+
+
 
     }
 
     public abstract Boolean canEvolve();
 
-    public abstract void updateStats();
+    public void updateStats(){};
 
     public void calculateStats(Integer baseHp, Integer baseSp, Integer baseAtk, Integer baseDef,
                                Integer basePower, Integer baseDexterity, Integer baseIntelligence, Integer baseAgility, Integer baseLuck) {

@@ -29,8 +29,9 @@ public class Hatchly extends Monster implements Avian {
      */
     public Hatchly() {
 
-        super(species,1,0, baseHp, baseSp, baseAttack, baseDefense,
-                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild);
+        super(species, species,1,0, baseHp, baseSp, baseAttack, baseDefense,
+                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild, score);
+
     }
 
     /**
@@ -39,8 +40,8 @@ public class Hatchly extends Monster implements Avian {
      */
     public Hatchly(Integer level) {
 
-        super(species, level, 0, baseHp, baseSp, baseAttack, baseDefense,
-                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild);
+        super(species, species, level, 0, baseHp, baseSp, baseAttack, baseDefense,
+                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild, score);
     }
 
     /**
@@ -48,8 +49,8 @@ public class Hatchly extends Monster implements Avian {
      */
     public Hatchly(String name, Integer level) {
 
-        super(name, level, 0, baseHp, baseSp, baseAttack, baseDefense,
-                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild);
+        super(name, species, level, 0, baseHp, baseSp, baseAttack, baseDefense,
+                basePower, baseDexterity, baseIntelligence, baseAgility, baseLuck, baseWild, score);
     }
 
     public void updateStats() {
