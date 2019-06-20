@@ -1,10 +1,10 @@
 package monsters;
 
-import monsters.skills.*;
+import skills.*;
 
-public interface AvianFamily {
+public interface AvianFamily extends Family {
 
-    String family = "avian";
+    String family = "AVIAN";
 
     default Effect neutralEffect(){ return  new BasicEffect(); }
     default Effect fireEffect(){ return new BasicEffect(); }
