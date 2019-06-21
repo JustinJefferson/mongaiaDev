@@ -1,4 +1,4 @@
-package monsters.skills;
+package skills;
 
 public class BasicEffect implements Effect {
 }

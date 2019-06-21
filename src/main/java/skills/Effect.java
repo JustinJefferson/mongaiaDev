@@ -1,4 +1,4 @@
-package monsters.skills;
+package skills;
 
 public interface Effect {
 }
