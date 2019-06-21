@@ -27,11 +27,11 @@ public class ConsumableStat implements Stat {
      * Constructor used for creating a new stat based on and to replace the current value of the consumable
      * @param level the level of the monster
      * @param baseScore - the baseScore of the stat
-     * @param current - the current Consumable object
+     * @param previous - the ConsumbaleStat used to base the currentValue off of.
      */
-    protected ConsumableStat(Integer level, Integer baseScore, ConsumableStat current) {
+    public ConsumableStat(Integer level, Integer baseScore, ConsumableStat previous) {
         maxValue = StatUtils.calculateConsumable(level, baseScore);
-        currentValue += current.get() + maxValue - current.getMax();
+        currentValue = previous.get() + maxValue - previous.getMax();
         if(maxValue < currentValue) currentValue = maxValue;
     }
 
@@ -54,7 +54,12 @@ public class ConsumableStat implements Stat {
      * @param num int to add
      */
     public void add(int num) {
-
+        if(currentValue + num < maxValue) {
+            currentValue += num;
+        }
+        else {
+            currentValue = maxValue;
+        }
     }
 
     /**
@@ -62,6 +67,12 @@ public class ConsumableStat implements Stat {
      * @param num int to subtract
      */
     public void substract(int num) {
+        if(currentValue - num >= 0) {
+            currentValue -= num;
+        }
+        else {
+            currentValue = 0;
+        }
 
     }
 
@@ -69,7 +80,7 @@ public class ConsumableStat implements Stat {
      * Zeros out the currentValue
      */
     public void deplete() {
-
+        currentValue = 0;
     }
 
     /**
@@ -77,14 +88,14 @@ public class ConsumableStat implements Stat {
      * @param percent the percent as an Integer
      */
     public void deplete(Integer percent) {
-
+        substract(maxValue * percent / 100);
     }
 
     /**
      * Makes currentValue equal to MaxValue
      */
     public void restore() {
-
+        currentValue = maxValue;
     }
 
     /**
@@ -92,7 +103,7 @@ public class ConsumableStat implements Stat {
      * @param percent the percent as an Integer
      */
     public void restore(Integer percent) {
-
+        add(maxValue * percent / 100);
     }
 
     /**
@@ -101,6 +112,6 @@ public class ConsumableStat implements Stat {
      */
     @Override
     public String toString() {
-        return null;
+        return String.format("%d / %d", currentValue, maxValue);
     }
 }

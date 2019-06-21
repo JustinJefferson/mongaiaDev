@@ -208,7 +208,7 @@ public class ConsumableStatTest {
 
         //When
         Integer expected = 75;
-        stat.substract(25);
+        stat.substract(75);
         stat.add(50);
         Integer actual = stat.get();
 
@@ -475,7 +475,7 @@ public class ConsumableStatTest {
         ConsumableStat stat = new ConsumableStat(50, 200);
 
         //When
-        String expected = "200 / 200";
+        String expected = "210 / 210";
         String actual = stat.toString();
 
         //Then
@@ -491,7 +491,7 @@ public class ConsumableStatTest {
         stat.deplete();
 
         //When
-        String expected = "50 / 100";
+        String expected = "0 / 210";
         String actual = stat.toString();
 
         //Then
@@ -507,7 +507,7 @@ public class ConsumableStatTest {
         previous.deplete();
         Integer expectedMax = 1010;
         Integer expectedCurrent = 910;
-        ConsumableStat stat = new ConsumableStat(50, 1000, new ConsumableStat());
+        ConsumableStat stat = new ConsumableStat(50, 1000, previous);
 
         //When
         Integer actualMax = stat.getMax();

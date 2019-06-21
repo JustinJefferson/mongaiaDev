@@ -1,5 +1,8 @@
 package monsters;
 
+import stats.ConsumableStat;
+import stats.ModifiableStat;
+
 /**
  * This is the superclass for all monsters in the game. All generic functionality comes through this Class
  */
@@ -11,27 +14,25 @@ public abstract class Monster {
      */
 
     //Descriptors
-    String name;
-    final String species;
-    Integer level;
-    final Integer score;
+    protected String name;
+    protected final String species;
+    protected Integer level;
+    protected final Integer score;
 
     //State
-    Integer experience;
-    String[] skills;
+    protected Integer experience;
+    protected String[] skills;
 
     //Stats
-    Integer hp;
-    Integer maxHp;
-    Integer sp;
-    Integer maxSp;
-    Integer attack;
-    Integer defense;
-    Integer power;
-    Integer dexterity;
-    Integer intelligence;
-    Integer agility;
-    Integer luck;
+    protected ConsumableStat hp;
+    ConsumableStat sp;
+    ModifiableStat attack;
+    ModifiableStat defense;
+    ModifiableStat power;
+    ModifiableStat dexterity;
+    ModifiableStat intelligence;
+    ModifiableStat agility;
+    ModifiableStat luck;
     Integer wild;
 
     //Base Stats
@@ -60,22 +61,15 @@ public abstract class Monster {
         this.skills = new String[8];
         this.score = score;
 
-        Integer startHpSp = 10;
-        Integer startAbility = 5;
-        Integer effectiveAbility = level / 100;
-
-        // TODO Finish this
-        maxHp = startHpSp + baseHp * effectiveAbility;
-        hp = maxHp;
-        maxSp = startHpSp + baseSp * effectiveAbility;
-        sp = maxSp;
-        attack = startAbility + baseAtk * effectiveAbility;
-        defense = startAbility + baseDef * effectiveAbility;
-        power = startAbility + basePower * effectiveAbility;
-        dexterity = startAbility + baseDexterity * effectiveAbility;
-        intelligence = startAbility + baseIntelligence * effectiveAbility;
-        agility = startAbility + baseAgility * effectiveAbility;
-        luck = startAbility + baseLuck * effectiveAbility;
+        hp = new ConsumableStat(level, baseHp);
+        sp = new ConsumableStat(level, baseSp);
+        attack = new ModifiableStat(level, baseAtk);
+        defense = new ModifiableStat(level, baseDef);
+        power = new ModifiableStat(level, basePower);
+        dexterity = new ModifiableStat(level, baseDexterity);
+        intelligence = new ModifiableStat(level, baseIntelligence);
+        agility = new ModifiableStat(level, baseAgility);
+        luck = new ModifiableStat(level, baseLuck);
         this.wild = wild;
 
         this.baseHp = baseHp;
@@ -117,41 +111,17 @@ public abstract class Monster {
      * Calculates each stat based on its level and changes the effective stat
      */
     protected void updateStats(){
-        Integer previousHp = maxHp;
-        maxHp = calculateHpSp(baseHp);
-        hp += maxHp - previousHp;
 
-        Integer previousSp = maxSp;
-        maxSp = calculateHpSp(baseSp);
-        sp += maxSp - previousSp;
+        hp = new ConsumableStat(level, baseHp, hp);
+        sp = new ConsumableStat(level, baseSp, sp);
+        attack = new ModifiableStat(level, baseAttack, attack);
+        defense = new ModifiableStat(level, baseDefense, defense);
+        power = new ModifiableStat(level, basePower, power);
+        dexterity = new ModifiableStat(level, baseDexterity, dexterity);
+        intelligence = new ModifiableStat(level, baseIntelligence, intelligence);
+        agility = new ModifiableStat(level, baseAgility, agility);
+        luck = new ModifiableStat(level, baseLuck, luck);
 
-        attack = calculateAbility(baseAttack);
-        defense = calculateAbility(baseDefense);
-        power = calculateAbility(basePower);
-        dexterity = calculateAbility(baseDexterity);
-        intelligence = calculateAbility(baseIntelligence);
-        agility = calculateAbility(baseAgility);
-        luck = calculateAbility(baseLuck);
-    }
-
-    /**
-     * Used to update the Hp or Sp for the appropriate level.
-     * Hp and Sp have a minimum score of 10 in which a percentage of the base score is applied.
-     * @param baseValue of either the Hp or Sp score.
-     * @return the appropriate hp or sp for the level of the monster.
-     */
-    private Integer calculateHpSp(Integer baseValue) {
-        return (10 + baseValue * level / 50);
-    }
-
-    /**
-     * Used to update the ablility score for the appropriate level
-     * Ability scores have a minimum of 5 in which a percentage of the base score is applied.
-     * @param baseValue of either atk, def, power, dexterity, intelligence, agility, or luck.
-     * @return the appropriate ability score for the level of the monster
-     */
-    private Integer calculateAbility(Integer baseValue) {
-        return (5 + baseValue * level / 50);
     }
 
     public String getName() {
@@ -186,92 +156,40 @@ public abstract class Monster {
         this.skills = skills;
     }
 
-    public Integer getHp() {
+    public ConsumableStat getHp() {
         return hp;
     }
 
-    public void setHp(Integer hp) {
-        this.hp = hp;
-    }
-
-    public Integer getMaxHp() {
-        return maxHp;
-    }
-
-    public void setMaxHp(Integer maxHp) {
-        this.maxHp = maxHp;
-    }
-
-    public Integer getSp() {
+    public ConsumableStat getSp() {
         return sp;
     }
 
-    public void setSp(Integer sp) {
-        this.sp = sp;
-    }
-
-    public Integer getMaxSp() {
-        return maxSp;
-    }
-
-    public void setMaxSp(Integer maxSp) {
-        this.maxSp = maxSp;
-    }
-
-    public Integer getAttack() {
+    public ModifiableStat getAttack() {
         return attack;
     }
 
-    public void setAttack(Integer attack) {
-        this.attack = attack;
-    }
-
-    public Integer getDefense() {
+    public ModifiableStat getDefense() {
         return defense;
     }
 
-    public void setDefense(Integer defense) {
-        this.defense = defense;
-    }
-
-    public Integer getPower() {
+    public ModifiableStat getPower() {
         return power;
     }
 
-    public void setPower(Integer power) {
-        this.power = power;
-    }
-
-    public Integer getDexterity() {
+    public ModifiableStat getDexterity() {
         return dexterity;
     }
 
-    public void setDexterity(Integer dexterity) {
-        this.dexterity = dexterity;
-    }
-
-    public Integer getIntelligence() {
+    public ModifiableStat getIntelligence() {
         return intelligence;
     }
 
-    public void setIntelligence(Integer intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    public Integer getAgility() {
+    public ModifiableStat getAgility() {
         return agility;
     }
 
-    public void setAgility(Integer agility) {
-        this.agility = agility;
-    }
-
-    public Integer getLuck() {
+    public ModifiableStat getLuck() {
         return luck;
-    }
-
-    public void setLuck(Integer luck) {
-        this.luck = luck;
     }
 
     public Integer getWild() {
